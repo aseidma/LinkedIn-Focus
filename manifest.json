@@ -1,7 +1,7 @@
 {
     "name": "LinkedIn InFocus",
     "version": "0.1",
-    "description": "A chrome extension that hides the Linkedin News feed and the Emerging News and Views panel. ",
+    "description": "A chrome extension that hides the Linkedin News feed and the Emerging News and Views panel.",
     "manifest_version": 2,
     "background": {
         "scripts": [
@@ -20,7 +20,7 @@
         }
     ],
     "browser_action": {
-        "default_title": "Test Extension"
+        "default_title": "Linkedin InFocus"
     },
     "permissions": ["activeTab"]
 }
