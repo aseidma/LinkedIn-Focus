@@ -13,6 +13,5 @@ port.onMessage.addListener((msg) => {
     } else if (msg.type === "unfocus") {
         document.getElementsByClassName('feed-shared-news-module')[0].style.visibility = 'visible'
         document.getElementsByClassName('core-rail')[0].style.visibility = 'visible'
-    
     }
 });

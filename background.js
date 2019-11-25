@@ -1,5 +1,4 @@
 var port;
-var focused = true;
 
 chrome.runtime.onInstalled.addListener(function () {
     chrome.runtime.onConnect.addListener(function (p) {
@@ -16,4 +15,3 @@ chrome.browserAction.onClicked.addListener(function (tab) {
         port.postMessage({type: "unfocus"})
     }
 });
-
