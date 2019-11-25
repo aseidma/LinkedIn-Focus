@@ -1,18 +1,19 @@
-/**
- * We log to the console to ensure our extension was correctly installed. 
- */
+var port;
+var focused = true;
+
 chrome.runtime.onInstalled.addListener(function () {
-    console.log("You must Focus!");
+    chrome.runtime.onConnect.addListener(function (p) {
+        port = p
+        p.postMessage({type: "focus"})
+    })
 });
 
-/**
- * When the Linkedin InFocus extension button is clicked, we
- * send a 'block_news' message to the content scripts on our 
- * tab to hide the elements we want to get rid of. 
- */
 chrome.browserAction.onClicked.addListener(function (tab) {
-    console.log("Extension button clicked")
-    chrome.tabs.sendMessage(tab.id, { text: 'block_news' });
-    console.log("Block news message sent")
+    focus = !focus;
+    if (focus) {
+        port.postMessage({type: "focus"})
+    } else {
+        port.postMessage({type: "unfocus"})
+    }
 });
 
