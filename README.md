@@ -1,5 +1,5 @@
-# LinkedIn-InFocus
-A chrome extension that hides the Linkedin News feed and the Emerging News and Views panel. 
+# LinkedInFocus
+LinkedInFocus is a web extension that allows you to hide the news feed and news panel on LinkedIn so you can focus on your career!
 
 ### Before 
 ![Before](before.png)
@@ -8,5 +8,3 @@ A chrome extension that hides the Linkedin News feed and the Emerging News and V
 ![After](after.png)
 
 ***
-
-![Grey Software](https://github.com/grey-software/Grey-Software/blob/master/grey-software.png?raw=true)
