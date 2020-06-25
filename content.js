@@ -400,9 +400,8 @@ const quotes = [
     }
 ]
 
-var instruction = "To enable your news feed again, click on the LinkedInFocus extension icon: "
-const logoUrl = chrome.runtime.getURL("LinkedInFocus/icon.png")
-console.log(logoUrl)
+var instruction = "To enable your news feed again, click on the LinkedInFocus extension icon which looks like this:"
+const logoUrl = chrome.runtime.getURL("icon.png")
 var newsFeedContent = document.getElementsByClassName('core-rail')[0].innerHTML
 port.onMessage.addListener((msg) => {
     if (msg.type === "focus") {
@@ -445,7 +444,8 @@ function displayQuote() {
     linkedInFocusHTML += "<p " + quoteStyle + ">" + quote.text + "</p>"
     linkedInFocusHTML += "<p " + quoteSourceStyle + ">- " + quote.source + "</p>"
     linkedInFocusHTML += "<p " + instructionStyle + ">" + instruction + "</p>"
-    linkedInFocusHTML += "<img src=\"" + logoUrl + "\" " + logoStyle + ">" + instruction + "</p>"
+    linkedInFocusHTML += "<img src=\"" + logoUrl + "\" " + logoStyle + ">"
+    linkedInFocusHTML += "<p " + instructionStyle + ">" + " It can be found on the top right corner of your screen." + "</p>"
     document.getElementsByClassName('core-rail')[0].innerHTML = linkedInFocusHTML
     document.getElementsByClassName('core-rail')[0].style.fontFamily = "Arial, Helvetica";
 }
