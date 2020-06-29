@@ -400,7 +400,6 @@ const quotes = [
     }
 ]
 
-var instruction = "To enable your news feed again, click on the LinkedInFocus extension icon which looks like this:"
 const logoUrl = chrome.runtime.getURL("icon.png")
 var newsFeedContent = document.getElementsByClassName('core-rail')[0].innerHTML
 port.onMessage.addListener((msg) => {
@@ -440,12 +439,14 @@ function displayQuote() {
     const instructionStyle = "style=\"color:#293E4A;font-size:16px;\margin-bottom:4px;\""
     const logoStyle = " style=\"margin-left: 4px;height: 24px;\" "
 
+    const instruction = "To exit focus mode, click on the LinkedInFocus extension:"
+
     var linkedInFocusHTML = "<h1 " + titleStyle + ">LinkedInFocus</h1>"
     linkedInFocusHTML += "<p " + quoteStyle + ">" + quote.text + "</p>"
     linkedInFocusHTML += "<p " + quoteSourceStyle + ">- " + quote.source + "</p>"
-    linkedInFocusHTML += "<p " + instructionStyle + ">" + instruction + "</p>"
-    linkedInFocusHTML += "<img src=\"" + logoUrl + "\" " + logoStyle + ">"
-    linkedInFocusHTML += "<p " + instructionStyle + ">" + " It can be found on the top right corner of your screen." + "</p>"
+    linkedInFocusHTML += "<p " + instructionStyle + ">" + instruction 
+    linkedInFocusHTML += "<img src=\"" + logoUrl + "\" " + logoStyle + ">" + " from the extensions panel on the top right corner of your screen.</p>"
+    // linkedInFocusHTML += "<p " + instructionStyle + ">" + " from the extensions panel on the top right corner of your screen." + "</p>"
     document.getElementsByClassName('core-rail')[0].innerHTML = linkedInFocusHTML
     document.getElementsByClassName('core-rail')[0].style.fontFamily = "Arial, Helvetica";
 }
