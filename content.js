@@ -455,12 +455,16 @@ function setNewsVisibility(isVisible) {
     if (!isVisible) {
         document.getElementsByClassName('feed-shared-news-module')[0].style.visibility = 'hidden'
         document.getElementsByClassName('core-rail')[0].style.visibility = 'hidden'
+        document.getElementsByClassName('ad-banner-container is-header-zone ember-view')[0].style.visibility = 'hidden'
+        document.getElementsByClassName('ad-banner-container artdeco-card ember-view')[0].style.visibility = 'hidden'
         for (i = 0; i < document.getElementsByClassName('nav-item__badge').length; i++) {
             document.getElementsByClassName('nav-item__badge')[i].style.visibility = 'hidden';
         }
     } else {
         document.getElementsByClassName('feed-shared-news-module')[0].style.visibility = 'visible'
         document.getElementsByClassName('core-rail')[0].style.visibility = 'visible'
+        document.getElementsByClassName('ad-banner-container is-header-zone ember-view')[0].style.visibility = 'visible'
+        document.getElementsByClassName('ad-banner-container artdeco-card ember-view')[0].style.visibility = 'visible'
         document.getElementsByClassName('core-rail')[0].innerHTML = newsFeedContent
         for (i = 0; i < document.getElementsByClassName('nav-item__badge').length; i++) {
             document.getElementsByClassName('nav-item__badge')[i].style.visibility = 'visible';
