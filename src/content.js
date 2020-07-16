@@ -457,6 +457,8 @@ function setNewsVisibility (isVisible) {
         for (let i = 0; i < newsFeedContainer.children.length; i++) {
             newsFeedContainer.children[i].style.visibility = 'hidden';
         }
+        document.getElementsByClassName('ad-banner-container is-header-zone ember-view')[0].style.visibility = 'hidden'
+        document.getElementsByClassName('ad-banner-container artdeco-card ember-view')[0].style.visibility = 'hidden'
         for (i = 0; i < document.getElementsByClassName('nav-item__badge').length; i++) {
             document.getElementsByClassName('nav-item__badge')[i].style.visibility = 'hidden';
         }
@@ -466,6 +468,8 @@ function setNewsVisibility (isVisible) {
         for (let i = 0; i < newsFeedContainer.children.length; i++) {
             newsFeedContainer.children[i].style.visibility = 'visible';
         }
+        document.getElementsByClassName('ad-banner-container is-header-zone ember-view')[0].style.visibility = 'visible'
+        document.getElementsByClassName('ad-banner-container artdeco-card ember-view')[0].style.visibility = 'visible'
         for (i = 0; i < document.getElementsByClassName('nav-item__badge').length; i++) {
             document.getElementsByClassName('nav-item__badge')[i].style.visibility = 'visible';
         }
