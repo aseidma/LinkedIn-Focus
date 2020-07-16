@@ -401,7 +401,6 @@ const quotes = [
 ]
 
 const logoUrl = chrome.runtime.getURL("icon.png")
-var newsFeedContent = document.getElementsByClassName('core-rail')[0].innerHTML
 port.onMessage.addListener((msg) => {
     if (msg.type === "focus") {
         blockNewsFeed()
@@ -412,24 +411,23 @@ port.onMessage.addListener((msg) => {
 
 var intervalTimerId;
 
-function blockNewsFeed() {
-    function tryBlockingNewsFeed() {
+function blockNewsFeed () {
+    function tryBlockingNewsFeed () {
         if (!hasNewsLoaded()) {
             return
         }
+        setNewsVisibility(false)
         if (isNewsBlocked()) {
             clearInterval(intervalTimerId)
             displayQuote()
             return;
-        }
-        setNewsVisibility(false)
-    }
+        }    }
     if (!isNewsBlocked()) {
         intervalTimerId = setInterval(tryBlockingNewsFeed, 1000)
     }
 }
 
-function displayQuote() {
+function displayQuote () {
     var quote = quotes[Math.floor(Math.random() * quotes.length)];
     document.getElementsByClassName('core-rail')[0].style.visibility = 'visible'
 
@@ -444,39 +442,44 @@ function displayQuote() {
     var linkedInFocusHTML = "<h1 " + titleStyle + ">LinkedInFocus</h1>"
     linkedInFocusHTML += "<p " + quoteStyle + ">" + quote.text + "</p>"
     linkedInFocusHTML += "<p " + quoteSourceStyle + ">- " + quote.source + "</p>"
-    linkedInFocusHTML += "<p " + instructionStyle + ">" + instruction 
-    linkedInFocusHTML += "<img src=\"" + logoUrl + "\" " + logoStyle + ">" + " from the extensions panel on the top right corner of your screen.</p>"
-    // linkedInFocusHTML += "<p " + instructionStyle + ">" + " from the extensions panel on the top right corner of your screen." + "</p>"
-    document.getElementsByClassName('core-rail')[0].innerHTML = linkedInFocusHTML
+    linkedInFocusHTML += "<p " + instructionStyle + ">" + instruction
+    linkedInFocusHTML += "<img src=\"" + logoUrl + "\" " + logoStyle + ">" + " from the extensions panel on the top right corner of your screen.</p>"    
+    const quoteHtmlNode = document.createElement("div")
+    quoteHtmlNode.innerHTML = linkedInFocusHTML 
+    document.getElementsByClassName('core-rail')[0].prepend(quoteHtmlNode)
     document.getElementsByClassName('core-rail')[0].style.fontFamily = "Arial, Helvetica";
 }
 
-function setNewsVisibility(isVisible) {
+function setNewsVisibility (isVisible) {
+    const newsFeedContainer = document.getElementsByClassName('core-rail')[0]
     if (!isVisible) {
         document.getElementsByClassName('feed-shared-news-module')[0].style.visibility = 'hidden'
-        document.getElementsByClassName('core-rail')[0].style.visibility = 'hidden'
+        for (let i = 0; i < newsFeedContainer.children.length; i++) {
+            newsFeedContainer.children[i].style.visibility = 'hidden';
+        }
         for (i = 0; i < document.getElementsByClassName('nav-item__badge').length; i++) {
             document.getElementsByClassName('nav-item__badge')[i].style.visibility = 'hidden';
         }
     } else {
         document.getElementsByClassName('feed-shared-news-module')[0].style.visibility = 'visible'
-        document.getElementsByClassName('core-rail')[0].style.visibility = 'visible'
-        document.getElementsByClassName('core-rail')[0].innerHTML = newsFeedContent
+        document.getElementsByClassName('core-rail')[0].children[0].remove()
+        for (let i = 0; i < newsFeedContainer.children.length; i++) {
+            newsFeedContainer.children[i].style.visibility = 'visible';
+        }
         for (i = 0; i < document.getElementsByClassName('nav-item__badge').length; i++) {
             document.getElementsByClassName('nav-item__badge')[i].style.visibility = 'visible';
         }
     }
 }
 
-function isNewsBlocked() {
+function isNewsBlocked () {
     if (!hasNewsLoaded()) {
         return false
     }
-    return document.getElementsByClassName('feed-shared-news-module')[0].style.visibility == 'hidden' &&
-        document.getElementsByClassName('core-rail')[0].style.visibility == 'hidden'
+    return document.getElementsByClassName('feed-shared-news-module')[0].style.visibility == 'hidden'
 }
 
-function hasNewsLoaded() {
+function hasNewsLoaded () {
     return document.getElementsByClassName('feed-shared-news-module')[0] &&
         document.getElementsByClassName('core-rail')[0]
 }

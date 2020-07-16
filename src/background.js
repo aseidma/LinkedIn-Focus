@@ -4,12 +4,12 @@ var focus = true;
 chrome.runtime.onConnect.addListener(function (connectionPort) {
     console.assert(connectionPort.name == "linkedin-infocus");
     port = connectionPort
-    if (focus) { 
-        port.postMessage({ type: "focus" }) 
+    if (focus) {
+        port.postMessage({ type: "focus" })
     }
 });
 
-chrome.browserAction.onClicked.addListener(function (tab) {
+chrome.browserAction.onClicked.addListener(function () {
     if (!focus) {
         port.postMessage({ type: "focus" })
     } else {
