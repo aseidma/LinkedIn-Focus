@@ -1,6 +1,7 @@
 {
-    "name": "LinkedInFocus",
-    "version": "0.1",
+    "name": "LinkedIn Focus",
+    "version": "1.0.0",
+    "version_name": "1.0 rc",
     "description": "A web extension that allows you to hide news and notifications on LinkedIn so you can focus on your career!",
     "manifest_version": 2,
     "background": {
