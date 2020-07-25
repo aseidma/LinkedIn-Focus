@@ -448,7 +448,9 @@ function displayQuote () {
     linkedInFocusHTML += "<p " + instructionStyle + ">" + instruction
     linkedInFocusHTML += "<img src=\"" + logoUrl + "\" " + logoStyle + ">" + " from the extensions panel on the top right corner of your screen.</p>"    
     linkedInFocusHTML += "<br>"
-    linkedInFocusHTML += "<div style=\"border:3px; border-style:solid; border-color: #D3D3D3; padding: 1em; width: 500px;height: 250px;\"><p><img src=\""+gslogoUrl+"\" style=\"height: 50px;float:left;\"><h1>Grey Software</h1><br>"+boxText+"<br>"+boxText1+"<a href=\"https://org.grey.software/\">Grey Software</a></div>"
+
+    linkedInFocusHTML += "<div style=\"border:3px; border-style:solid; border-color: #D3D3D3; padding: 1em; width: 500px;height: 250px;\">"
+    linkedInFocusHTML += "<img src=\""+gslogoUrl+"\" style=\"height: 50px;float:left;margin-left: 4px;margin-right: 6px;\" /><h1>Grey Software</h1><br>"+boxText+"<br>"+boxText1+"<a href=\"https://org.grey.software/\">Grey Software</a></div>"
 
 
     const quoteHtmlNode = document.createElement("div")
