@@ -401,6 +401,7 @@ const quotes = [
 ]
 
 const logoUrl = chrome.runtime.getURL("icon.png")
+const gslogoUrl = chrome.runtime.getURL("logo.png")
 port.onMessage.addListener((msg) => {
     if (msg.type === "focus") {
         blockNewsFeed()
@@ -436,6 +437,8 @@ function displayQuote () {
     const quoteSourceStyle = "style=\"color:#293E4A;font-size:20px;font-style:italic;margin-bottom:16px;\""
     const instructionStyle = "style=\"color:#293E4A;font-size:16px;\margin-bottom:4px;\""
     const logoStyle = " style=\"margin-left: 4px;height: 24px;\" "
+    const boxText = "This web extension was developed by Grey Software. Grey Software is a non-profit organization that aims to create the open source ecosystem of the future where software maintainers mentor students and build free software together! "
+    const boxText1 = "To contribute to our cause, visit the Grey Software website at "
 
     const instruction = "To exit focus mode, click on the LinkedInFocus extension:"
 
@@ -444,6 +447,12 @@ function displayQuote () {
     linkedInFocusHTML += "<p " + quoteSourceStyle + ">- " + quote.source + "</p>"
     linkedInFocusHTML += "<p " + instructionStyle + ">" + instruction
     linkedInFocusHTML += "<img src=\"" + logoUrl + "\" " + logoStyle + ">" + " from the extensions panel on the top right corner of your screen.</p>"    
+    linkedInFocusHTML += "<br>"
+
+    linkedInFocusHTML += "<div style=\"border:3px; border-style:solid; border-color: #D3D3D3; padding: 1em; width: 500px;height: 250px;\">"
+    linkedInFocusHTML += "<img src=\""+gslogoUrl+"\" style=\"height: 50px;float:left;margin-left: 4px;margin-right: 6px;\" /><h1>Grey Software</h1><br>"+boxText+"<br>"+boxText1+"<a href=\"https://org.grey.software/\">Grey Software</a></div>"
+
+
     const quoteHtmlNode = document.createElement("div")
     quoteHtmlNode.innerHTML = linkedInFocusHTML 
     document.getElementsByClassName('core-rail')[0].prepend(quoteHtmlNode)
