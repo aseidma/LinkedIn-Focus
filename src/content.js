@@ -443,15 +443,19 @@ function displayQuote () {
     const instruction = "To exit focus mode, click on the LinkedInFocus extension:"
 
     var linkedInFocusHTML = "<h1 " + titleStyle + ">LinkedInFocus</h1>"
+    linkedInFocusHTML += "<link rel=\"stylesheet\" href=\"https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css\"></link>"
     linkedInFocusHTML += "<p " + quoteStyle + ">" + quote.text + "</p>"
     linkedInFocusHTML += "<p " + quoteSourceStyle + ">- " + quote.source + "</p>"
     linkedInFocusHTML += "<p " + instructionStyle + ">" + instruction
     linkedInFocusHTML += "<img src=\"" + logoUrl + "\" " + logoStyle + ">" + " from the extensions panel on the top right corner of your screen.</p>"    
     linkedInFocusHTML += "<br>"
 
-    linkedInFocusHTML += "<div style=\"border:3px; border-style:solid; border-color: #D3D3D3; padding: 1em; width: 500px;height: 250px;\">"
-    linkedInFocusHTML += "<img src=\""+gslogoUrl+"\" style=\"height: 50px;float:left;margin-left: 4px;margin-right: 6px;\" /><h1>Grey Software</h1><br>"+boxText+"<br>"+boxText1+"<a href=\"https://org.grey.software/\">Grey Software</a></div>"
-
+    linkedInFocusHTML += "<div style=\"border:3px; border-style:solid; border-color: #D3D3D3; padding: 1em; width: 500px;height: 310px;\">"
+    linkedInFocusHTML += "<img src=\""+gslogoUrl+"\" style=\"height: 50px;float:left;margin-left: 4px;margin-right: 6px;\" /><h1>Grey Software</h1><br>"+boxText+"<br>"+boxText1+"<a href=\"https://org.grey.software/\">Grey Software</a>"
+    linkedInFocusHTML += "<br><br>"
+    linkedInFocusHTML += "<a href=\"https://www.linkedin.com/company/grey-software/\" class=\"fa fa-linkedin\" style=\"padding: 5px;font-size: 20px;width: 30px;text-align: center;text-decoration: none;margin: 5px 20px 0px 40%;background: #007bb5;color: white;\"></a>"
+    linkedInFocusHTML += "<a href=\"https://github.com/grey-software\" class=\"fa fa-github\" style=\"font-size:30px;margin: 5px\"></a></div>"
+    linkedInFocusHTML += "<style>a{text-decoration: none;color: black;} a:visited{text-decoration: none;color: black;} a:hover{text-decoration: none !important;opacity: 0.7;} </style>"
 
     const quoteHtmlNode = document.createElement("div")
     quoteHtmlNode.innerHTML = linkedInFocusHTML 
