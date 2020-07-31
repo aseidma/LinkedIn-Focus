@@ -402,6 +402,8 @@ const quotes = [
 
 const logoUrl = chrome.runtime.getURL("icon.png")
 const gslogoUrl = chrome.runtime.getURL("logo.png")
+const tooninlogoUrl = chrome.runtime.getURL("toonin_logo.png")
+const matmathlogoUrl = chrome.runtime.getURL("material_math_logo.png")
 port.onMessage.addListener((msg) => {
     if (msg.type === "focus") {
         blockNewsFeed()
@@ -441,7 +443,9 @@ function displayQuote () {
     const quoteSourceStyle = "style=\"color:#293E4A;font-size:20px;font-style:italic;margin-bottom:16px;\""
     const instructionStyle = "style=\"color:#293E4A;font-size:16px;\margin-bottom:4px;\""
     const logoStyle = " style=\"height: 24px;margin: 0px 4px;\" "
+    const gspanelTitleStyle = "style=\"color:#434343;font-size:24px;font-weight:700;text-align:center;margin-bottom:25px;\""
     const gsDesc = "This web extension was developed by Grey Software. Grey Software is a non-profit organization that aims to create the open source ecosystem of the future where software maintainers mentor students and build free software together!"
+    const hyperlinkStyle = "<style>a{text-decoration: none;color: black;} a:visited{text-decoration: none;color: black;} a:hover{text-decoration: none !important;opacity: 0.7;} </style>"
     const gsCta = "To learn more, please visit the Grey Software website at "
 
     const instruction = "To exit focus mode, click on the LinkedInFocus extension:"
@@ -460,12 +464,30 @@ function displayQuote () {
     linkedInFocusHTML += "<span " + gsTitleStyle + ">Grey Software</span>"
     linkedInFocusHTML += "<a " + gsSocialLinkedInStyle + " href=\"https://www.linkedin.com/company/grey-software/\" class=\"fa fa-linkedin\"></a>"
     linkedInFocusHTML += "<a " + gsGithubStyle + " href=\"https://github.com/grey-software\" class=\"fa fa-github\"></a></div>"
-    linkedInFocusHTML += "<style>a{text-decoration: none;color: black;} a:visited{text-decoration: none;color: black;} a:hover{text-decoration: none !important;opacity: 0.7;} </style>"
+    linkedInFocusHTML += hyperlinkStyle
     linkedInFocusHTML += "<div>" + gsDesc + "<p style=\"margin-top: 12px;\">" + gsCta + "</p><a href=\"https://org.grey.software/\">grey.software</a></div>"
     linkedInFocusHTML += "</div>"
 
     const quoteHtmlNode = document.createElement("div")
     quoteHtmlNode.innerHTML = linkedInFocusHTML
+
+    // HTML for side panel
+    var sidePanelHTML = "<div style=\"padding:15px;\">"
+    sidePanelHTML += "<h2 " + gspanelTitleStyle + ">Grey Software Initiatives</h2>"
+    sidePanelHTML += "<div style=\"display:flex;\">"
+    sidePanelHTML += "<div style=\"flex:50%;\">"
+    sidePanelHTML += "<center><img src=\"" + tooninlogoUrl + "\" style=\"width:40%;\"/></center>"
+    sidePanelHTML += "<p style=\"text-align:center;width=40%;\"><a href=\"https://github.com/grey-software/toonin\">Toonin</a></p>"
+    sidePanelHTML += "</div>"
+    sidePanelHTML += "<div style=\"flex:50%;\">"
+    sidePanelHTML += "<center><img src=\"" + matmathlogoUrl + "\" style=\"width:40%;\"/></center>"
+    sidePanelHTML += "<p style=\"text-align:center;width=40%;\"><a href=\"https://github.com/grey-software/Material-Math\">Material Math</a></p>"
+    sidePanelHTML += "</div>"
+    sidePanelHTML += hyperlinkStyle
+    sidePanelHTML += "</div>"
+    // Change the HTML of the side panel
+    document.getElementsByClassName('artdeco-card ember-view')[4].innerHTML = sidePanelHTML
+
     document.getElementsByClassName('core-rail')[0].prepend(quoteHtmlNode)
     document.getElementsByClassName('core-rail')[0].style.fontFamily = "Arial, Helvetica";
 }
