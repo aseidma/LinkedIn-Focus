@@ -1,31 +1,3 @@
-/**
- * Our content script can interact with the DOM, so we register a listener 
- * that hides the news feed and side news panel when the 'focus' message
- * is sent by the background script.
- */
-const logoUrl = chrome.runtime.getURL("icon.png")
-const gslogoUrl = chrome.runtime.getURL("logo.png")
-const tooninlogoUrl = chrome.runtime.getURL("toonin_logo.png")
-const matmathlogoUrl = chrome.runtime.getURL("material_math_logo.png")
-
-const NEWS_FEED_CLASSNAME = "core-rail"
-const SHARED_NEWS_CLASSNAME = "feed-shared-news-module"
-const MAIN_CONTAINER_CLASSNAME = "ghost-animate-in"
-
-const setMainContainerVisibility = (visible) => {
-    const visibility = visible ? 'visible' : 'hidden'
-    document.getElementsByClassName(MAIN_CONTAINER_CLASSNAME)[0].style.visibility = visibility
-}
-
-const setupMainContainer = () => {
-    setMainContainerVisibility(false)
-    const mainContainer = document.getElementsByClassName(MAIN_CONTAINER_CLASSNAME)[0]
-    mainContainer.style.opacity = "0"
-    mainContainer.style.transition = "opacity 0.4s ease-out"
-}
-
-setupMainContainer()
-const port = chrome.runtime.connect({ name: "linkedin-focus" });
 const quotes = [
     {
         id: 1,
@@ -311,6 +283,7 @@ const quotes = [
         text: 'You only live once, but if you do it right, once is enough.',
         source: 'Mae West'
     }
+<<<<<<< HEAD:src/content.js
 ]
 
 
@@ -436,3 +409,6 @@ const hideDistractions = (shouldHide) => {
 const hasNewsLoaded = () => {
     return document.getElementsByClassName(SHARED_NEWS_CLASSNAME)[0] && document.getElementsByClassName(NEWS_FEED_CLASSNAME)[0]
 }
+=======
+]
+>>>>>>> master:src/quotes.js

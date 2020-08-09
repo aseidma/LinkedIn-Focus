@@ -13,7 +13,7 @@
             "run_at": "document_end",
 
             "matches": ["*://*.linkedin.com/*"],
-            "js": ["content.js"]
+            "js": ["focus.js", "quotes.js"]
         }
     ],
     "browser_action": {
