@@ -11,7 +11,7 @@
     "content_scripts": [
         {
             "matches": ["*://*.linkedin.com/*"],
-            "js": ["content.js"]
+            "js": ["focus.js", "quotes.js"]
         }
     ],
     "browser_action": {
