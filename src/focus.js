@@ -3,42 +3,64 @@
  * that hides the news feed and side news panel when the 'focus' message
  * is sent by the background script.
  */
-const port = chrome.runtime.connect({ name: "linkedin-infocus" });
-
 const logoUrl = chrome.runtime.getURL("icon.png")
 const gslogoUrl = chrome.runtime.getURL("logo.png")
 const tooninlogoUrl = chrome.runtime.getURL("toonin_logo.png")
 const matmathlogoUrl = chrome.runtime.getURL("material_math_logo.png")
+
+const NEWS_FEED_CLASSNAME = "core-rail"
+const SHARED_NEWS_CLASSNAME = "feed-shared-news-module"
+const MAIN_CONTAINER_CLASSNAME = "ghost-animate-in"
+
+const setMainContainerVisibility = (visible) => {
+    const visibility = visible ? 'visible' : 'hidden'
+    document.getElementsByClassName(MAIN_CONTAINER_CLASSNAME)[0].style.visibility = visibility
+}
+
+const setupMainContainer = () => {
+    setMainContainerVisibility(false)
+    const mainContainer = document.getElementsByClassName(MAIN_CONTAINER_CLASSNAME)[0]
+    mainContainer.style.opacity = "0"
+    mainContainer.style.transition = "opacity 0.4s ease-out"
+} 
+
+setupMainContainer()
+const port = chrome.runtime.connect({name: "linkedin-focus"});
+
 port.onMessage.addListener((msg) => {
     if (msg.type === "focus") {
-        blockNewsFeed()
+        enterFocusMode()
     } else if (msg.type === "unfocus") {
-        setNewsVisibility(true)
+        hideDistractions(false)
     }
 });
 
 var intervalTimerId;
+var distractionsHidden = false;
 
-function blockNewsFeed () {
-    function tryBlockingNewsFeed () {
-        if (!hasNewsLoaded()) {
-            return
-        }
-        setNewsVisibility(false)
-        if (isNewsBlocked()) {
-            clearInterval(intervalTimerId)
-            displayQuote()
-            return;
-        }
-    }
-    if (!isNewsBlocked()) {
-        intervalTimerId = setInterval(tryBlockingNewsFeed, 1000)
+const tryHidingDistractions = () => {
+    if (distractionsHidden) {
+        console.log("News is blocked")
+        clearInterval(intervalTimerId)
+    } else {
+        hideDistractions(true)
     }
 }
 
-function displayQuote () {
+const enterFocusMode = () => {
+
+    if (hasNewsLoaded()) {
+        console.log("News has loaded")
+        hideDistractions(true)
+    } else {
+        console.log("News hasn't loaded.")
+        intervalTimerId = setInterval(tryHidingDistractions, 343)
+    }
+}
+
+const displayQuote = () => {
     var quote = quotes[Math.floor(Math.random() * quotes.length)];
-    document.getElementsByClassName('core-rail')[0].style.visibility = 'visible'
+    document.getElementsByClassName(NEWS_FEED_CLASSNAME)[0].style.visibility = 'visible'
 
     const quoteStyle = "style=\"color:#293E4A;font-size:24px;\margin-bottom:4px;\""
     const lfTitleStyle = "style=\"color:#0477B5;font-size:32px;font-weight:700;margin-bottom:16px;\""
@@ -93,44 +115,35 @@ function displayQuote () {
     // Change the HTML of the side panel
     document.getElementsByClassName('artdeco-card ember-view')[4].innerHTML = sidePanelHTML
 
-    document.getElementsByClassName('core-rail')[0].prepend(quoteHtmlNode)
-    document.getElementsByClassName('core-rail')[0].style.fontFamily = "Arial, Helvetica";
+    document.getElementsByClassName(NEWS_FEED_CLASSNAME)[0].prepend(quoteHtmlNode)
+    document.getElementsByClassName(NEWS_FEED_CLASSNAME)[0].style.fontFamily = "Arial, Helvetica";
 }
 
-function setNewsVisibility (isVisible) {
-    const newsFeedContainer = document.getElementsByClassName('core-rail')[0]
-    if (!isVisible) {
-        document.getElementsByClassName('feed-shared-news-module')[0].style.visibility = 'hidden'
+const hideDistractions = (shouldHide) => {
+    const newsFeedContainer = document.getElementsByClassName(NEWS_FEED_CLASSNAME)[0]
+    if (shouldHide) {
+        document.getElementsByClassName(SHARED_NEWS_CLASSNAME)[0].style.visibility = 'hidden'
         for (let i = 0; i < newsFeedContainer.children.length; i++) {
             newsFeedContainer.children[i].style.visibility = 'hidden';
         }
         document.getElementsByClassName('ad-banner-container is-header-zone ember-view')[0].style.visibility = 'hidden'
         document.getElementsByClassName('ad-banner-container artdeco-card ember-view')[0].style.visibility = 'hidden'
-        for (i = 0; i < document.getElementsByClassName('nav-item__badge').length; i++) {
-            document.getElementsByClassName('nav-item__badge')[i].style.visibility = 'hidden';
-        }
+        displayQuote()
+        setTimeout(() => {
+            document.getElementsByClassName(MAIN_CONTAINER_CLASSNAME)[0].style.opacity = "1"
+        }, 148)
     } else {
-        document.getElementsByClassName('feed-shared-news-module')[0].style.visibility = 'visible'
-        document.getElementsByClassName('core-rail')[0].children[0].remove()
+        document.getElementsByClassName(SHARED_NEWS_CLASSNAME)[0].style.visibility = 'visible'
+        document.getElementsByClassName(NEWS_FEED_CLASSNAME)[0].children[0].remove()
         for (let i = 0; i < newsFeedContainer.children.length; i++) {
             newsFeedContainer.children[i].style.visibility = 'visible';
         }
         document.getElementsByClassName('ad-banner-container is-header-zone ember-view')[0].style.visibility = 'visible'
         document.getElementsByClassName('ad-banner-container artdeco-card ember-view')[0].style.visibility = 'visible'
-        for (i = 0; i < document.getElementsByClassName('nav-item__badge').length; i++) {
-            document.getElementsByClassName('nav-item__badge')[i].style.visibility = 'visible';
-        }
-    }
+    } distractionsHidden = shouldHide
+    setMainContainerVisibility(true)
 }
 
-function isNewsBlocked () {
-    if (!hasNewsLoaded()) {
-        return false
-    }
-    return document.getElementsByClassName('feed-shared-news-module')[0].style.visibility == 'hidden'
-}
-
-function hasNewsLoaded () {
-    return document.getElementsByClassName('feed-shared-news-module')[0] &&
-        document.getElementsByClassName('core-rail')[0]
+const hasNewsLoaded = () => {
+    return document.getElementsByClassName(SHARED_NEWS_CLASSNAME)[0] && document.getElementsByClassName(NEWS_FEED_CLASSNAME)[0]
 }
