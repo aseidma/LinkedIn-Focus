@@ -1,19 +1,17 @@
 var port;
 var focus = true;
 
+
 chrome.runtime.onConnect.addListener(function (connectionPort) {
-    console.assert(connectionPort.name == "linkedin-infocus");
+    console.assert(connectionPort.name == "linkedin-focus");
     port = connectionPort
-    if (focus) {
-        port.postMessage({ type: "focus" })
-    }
+    port.postMessage({type: "focus"})
 });
 
 chrome.browserAction.onClicked.addListener(function () {
-    if (!focus) {
-        port.postMessage({ type: "focus" })
+    if (! focus) {
+        port.postMessage({type: "focus"})
     } else {
-        port.postMessage({ type: "unfocus" })
-    }
-    focus = !focus;
+        port.postMessage({type: "unfocus"})
+    } focus = ! focus;
 });
