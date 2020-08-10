@@ -4,9 +4,10 @@
  * is sent by the background script.
  */
 const logoUrl = chrome.runtime.getURL("icon.png")
-const gslogoUrl = chrome.runtime.getURL("logo.png")
-const tooninlogoUrl = chrome.runtime.getURL("toonin_logo.png")
-const matmathlogoUrl = chrome.runtime.getURL("material_math_logo.png")
+const gsLogoUrl = chrome.runtime.getURL("logo.png")
+const tooninLogoUrl = chrome.runtime.getURL("toonin_logo.png")
+const materialMathLogoUrl = chrome.runtime.getURL("material_math_logo.png")
+const paypalLogoUrl = chrome.runtime.getURL("paypal.png")
 
 const NEWS_FEED_CLASSNAME = "core-rail"
 const SHARED_NEWS_CLASSNAME = "feed-shared-news-module"
@@ -22,10 +23,10 @@ const setupMainContainer = () => {
     const mainContainer = document.getElementsByClassName(MAIN_CONTAINER_CLASSNAME)[0]
     mainContainer.style.opacity = "0"
     mainContainer.style.transition = "opacity 0.4s ease-out"
-} 
+}
 
 setupMainContainer()
-const port = chrome.runtime.connect({name: "linkedin-focus"});
+const port = chrome.runtime.connect({ name: "linkedin-focus" });
 
 port.onMessage.addListener((msg) => {
     if (msg.type === "focus") {
@@ -73,6 +74,7 @@ const displayQuote = () => {
     const gspanelTitleStyle = "style=\"color:#434343;font-size:24px;font-weight:700;text-align:center;margin-bottom:25px;\""
     const gsDesc = "This web extension was developed by Grey Software. Grey Software is a non-profit organization that aims to create the open source ecosystem of the future where software maintainers mentor students and build free software together!"
     const hyperlinkStyle = "<style>a{text-decoration: none;color: black;} a:visited{text-decoration: none;color: black;} a:hover{text-decoration: none !important;opacity: 0.7;} </style>"
+    const paypalButtonStyle = "<style>.paypal-icon{height:24px;margin-right:4px}.paypal-button{border-radius:24px;height:42px;border:1px solid #003084;outline:none;display:flex;align-items:center;padding:2px 16px;color:#003084;font-size:18px;background-color:white;transition:all 0.3s ease-out}.paypal-button:hover{cursor:pointer;border:1px solid #1ba0de}.paypal-button:active{cursor:pointer;border:1px solid #1ba0de;color:white;background-color:#003084}</style>"
     const gsCta = "To learn more, please visit the Grey Software website at "
 
     const instruction = "To exit focus mode, click on the LinkedInFocus extension:"
@@ -85,13 +87,15 @@ const displayQuote = () => {
     linkedInFocusHTML += "<img src=\"" + logoUrl + "\" " + logoStyle + ">" + " from the extensions panel on the top right corner of your screen.</p>"
     linkedInFocusHTML += "<br>"
 
-    linkedInFocusHTML += "<div style=\"border: 2px;border-style:solid;border-color:#434343;padding: 1em;width: 500px;height: 269px;margin-top: 24px;padding-top:24px;border-radius:4px;\">"
+    linkedInFocusHTML += "<div style=\"border: 2px;border-style:solid;border-color:#434343;padding: 1em;width: 552px;height: 269px;margin-top: 24px;padding-top:24px;border-radius:4px;\">"
     linkedInFocusHTML += "<div style=\"display: flex; align-items: center;margin-bottom:16px;\">"
-    linkedInFocusHTML += "<img src=\"" + gslogoUrl + "\" style=\"height: 50px;float:left;margin-right: 6px;\" />"
+    linkedInFocusHTML += "<img src=\"" + gsLogoUrl + "\" style=\"height: 50px;float:left;margin-right: 6px;\" />"
     linkedInFocusHTML += "<span " + gsTitleStyle + ">Grey Software</span>"
     linkedInFocusHTML += "<a " + gsSocialLinkedInStyle + " href=\"https://www.linkedin.com/company/grey-software/\" class=\"fa fa-linkedin\"></a>"
-    linkedInFocusHTML += "<a " + gsGithubStyle + " href=\"https://github.com/grey-software\" class=\"fa fa-github\"></a></div>"
+    linkedInFocusHTML += "<a " + gsGithubStyle + " href=\"https://github.com/grey-software\" class=\"fa fa-github\"></a>"
+    linkedInFocusHTML += "<button class=\"paypal-button\"><img class=\"paypal-icon\" src=\"https://assets.codepen.io/853141/paypal.png\"/>Donate</button></div>"
     linkedInFocusHTML += hyperlinkStyle
+    linkedInFocusHTML += paypalButtonStyle
     linkedInFocusHTML += "<div>" + gsDesc + "<p style=\"margin-top: 12px;\">" + gsCta + "</p><a href=\"https://org.grey.software/\">grey.software</a></div>"
     linkedInFocusHTML += "</div>"
 
@@ -103,11 +107,11 @@ const displayQuote = () => {
     sidePanelHTML += "<h2 " + gspanelTitleStyle + ">Grey Software Initiatives</h2>"
     sidePanelHTML += "<div style=\"display:flex;\">"
     sidePanelHTML += "<div style=\"flex:50%;\">"
-    sidePanelHTML += "<center><img src=\"" + tooninlogoUrl + "\" style=\"width:40%;\"/></center>"
+    sidePanelHTML += "<center><img src=\"" + tooninLogoUrl + "\" style=\"width:40%;\"/></center>"
     sidePanelHTML += "<p style=\"text-align:center;width=40%;\"><a href=\"https://github.com/grey-software/toonin\">Toonin</a></p>"
     sidePanelHTML += "</div>"
     sidePanelHTML += "<div style=\"flex:50%;\">"
-    sidePanelHTML += "<center><img src=\"" + matmathlogoUrl + "\" style=\"width:40%;\"/></center>"
+    sidePanelHTML += "<center><img src=\"" + materialMathLogoUrl + "\" style=\"width:40%;\"/></center>"
     sidePanelHTML += "<p style=\"text-align:center;width=40%;\"><a href=\"https://github.com/grey-software/Material-Math\">Material Math</a></p>"
     sidePanelHTML += "</div>"
     sidePanelHTML += hyperlinkStyle
