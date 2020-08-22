@@ -13,7 +13,3 @@ Use [this guide](https://developer.chrome.com/extensions/getstarted) to load the
 
 ### After 
 ![After](after.png)
-
-### Roadmap
-
-LinkedIn Focus is preparing for a Beta Chrome Web Store release soon!

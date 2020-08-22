@@ -1,8 +1,3 @@
-/**
- * Our content script can interact with the DOM, so we register a listener 
- * that hides the news feed and side news panel when the 'focus' message
- * is sent by the background script.
- */
 const logoUrl = chrome.runtime.getURL("icon.png")
 const gsLogoUrl = chrome.runtime.getURL("logo.png")
 const tooninLogoUrl = chrome.runtime.getURL("toonin_logo.png")
@@ -26,18 +21,25 @@ const setupMainContainer = () => {
 }
 
 setupMainContainer()
-const port = chrome.runtime.connect({ name: "linkedin-focus" });
+var intervalTimerId;
+var distractionsHidden = false;
 
+/**
+ * Our content script can interact with the DOM, so we register a listener
+ * that hides the news feed and side news panel when the 'focus' message
+ * is sent by the background script.
+ */
+const port = chrome.runtime.connect({ name: "linkedin-focus" });
 port.onMessage.addListener((msg) => {
     if (msg.type === "focus") {
         enterFocusMode()
     } else if (msg.type === "unfocus") {
         hideDistractions(false)
+    } else if (msg.type === "reset") {
+        console.log("Resetting")
+        distractionsHidden = false;
     }
 });
-
-var intervalTimerId;
-var distractionsHidden = false;
 
 const tryHidingDistractions = () => {
     if (distractionsHidden) {
@@ -49,7 +51,6 @@ const tryHidingDistractions = () => {
 }
 
 const enterFocusMode = () => {
-
     if (hasNewsLoaded()) {
         console.log("News has loaded")
         hideDistractions(true)
@@ -133,27 +134,33 @@ const displayQuote = () => {
 
 const hideDistractions = (shouldHide) => {
     const newsFeedContainer = document.getElementsByClassName(NEWS_FEED_CLASSNAME)[0]
-    if (shouldHide) {
-        document.getElementsByClassName(SHARED_NEWS_CLASSNAME)[0].style.visibility = 'hidden'
-        for (let i = 0; i < newsFeedContainer.children.length; i++) {
-            newsFeedContainer.children[i].style.visibility = 'hidden';
+    try {
+        if (shouldHide) {
+            document.getElementsByClassName(SHARED_NEWS_CLASSNAME)[0].style.visibility = 'hidden'
+            for (let i = 0; i < newsFeedContainer.children.length; i++) {
+                newsFeedContainer.children[i].style.visibility = 'hidden';
+            }
+            document.getElementsByClassName('ad-banner-container is-header-zone ember-view')[0].style.visibility = 'hidden'
+            document.getElementsByClassName('ad-banner-container artdeco-card ember-view')[0].style.visibility = 'hidden'
+            displayQuote()
+            setTimeout(() => {
+                document.getElementsByClassName(MAIN_CONTAINER_CLASSNAME)[0].style.opacity = "1"
+            }, 148)
+        } else {
+            document.getElementsByClassName(SHARED_NEWS_CLASSNAME)[0].style.visibility = 'visible'
+            document.getElementsByClassName(NEWS_FEED_CLASSNAME)[0].children[0].remove()
+            for (let i = 0; i < newsFeedContainer.children.length; i++) {
+                newsFeedContainer.children[i].style.visibility = 'visible';
+            }
+            document.getElementsByClassName('ad-banner-container is-header-zone ember-view')[0].style.visibility = 'visible'
+            document.getElementsByClassName('ad-banner-container artdeco-card ember-view')[0].style.visibility = 'visible'
         }
-        document.getElementsByClassName('ad-banner-container is-header-zone ember-view')[0].style.visibility = 'hidden'
-        document.getElementsByClassName('ad-banner-container artdeco-card ember-view')[0].style.visibility = 'hidden'
-        displayQuote()
-        setTimeout(() => {
-            document.getElementsByClassName(MAIN_CONTAINER_CLASSNAME)[0].style.opacity = "1"
-        }, 148)
-    } else {
-        document.getElementsByClassName(SHARED_NEWS_CLASSNAME)[0].style.visibility = 'visible'
-        document.getElementsByClassName(NEWS_FEED_CLASSNAME)[0].children[0].remove()
-        for (let i = 0; i < newsFeedContainer.children.length; i++) {
-            newsFeedContainer.children[i].style.visibility = 'visible';
-        }
-        document.getElementsByClassName('ad-banner-container is-header-zone ember-view')[0].style.visibility = 'visible'
-        document.getElementsByClassName('ad-banner-container artdeco-card ember-view')[0].style.visibility = 'visible'
-    } distractionsHidden = shouldHide
-    setMainContainerVisibility(true)
+
+        distractionsHidden = shouldHide
+        setMainContainerVisibility(true)
+    } catch (e) {
+        console.log("Element not loaded: " + e)
+    }
 }
 
 const hasNewsLoaded = () => {
