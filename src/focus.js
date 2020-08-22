@@ -67,13 +67,10 @@ const displayQuote = () => {
     const quoteStyle = "style=\"color:#293E4A;font-size:24px;\margin-bottom:4px;\""
     const lfTitleStyle = "style=\"color:#0477B5;font-size:32px;font-weight:700;margin-bottom:16px;\""
     const gsTitleStyle = "style=\"color:#434343;font-size:32px;font-weight:700;margin-right:auto;\""
-    const gsGithubStyle = "style=\"height: 32px;width: 32px;font-size: 32px;margin: 0px 6px;\""
-    const gsSocialLinkedInStyle = "style=\"background: #007bb5;color: white;height: 32px;width: 32px;font-size: 24px;margin: 0px 6px;padding: 6px;border-radius:4px;\""
     const gsSocialStyle = "<style>.social-link {height: 32px;margin: 0px 6px;}</style>"
     const quoteSourceStyle = "style=\"color:#293E4A;font-size:20px;font-style:italic;margin-bottom:16px;\""
     const instructionStyle = "style=\"color:#293E4A;font-size:16px;\margin-bottom:4px;\""
     const logoStyle = " style=\"height: 24px;margin: 0px 4px;\" "
-    const gspanelTitleStyle = "style=\"color:#434343;font-size:24px;font-weight:700;text-align:center;margin-bottom:25px;\""
     const gsDesc = "This web extension was developed by Grey Software, a not-for-profit open source software development academy where maintainers and students create free software."
     const hyperlinkStyle = "<style>a{text-decoration: none;color: black;} a:visited{text-decoration: none;color: black;} a:hover{text-decoration: none !important;opacity: 0.7;} </style>"
     const gsDonate = "You can support us as we envision and build the software ecosystem of the future by sponsoring us on GitHub and/or by making a donation via PayPal."
@@ -91,12 +88,16 @@ const displayQuote = () => {
     focusHTML += "<br>"
 
     focusHTML += "<div style=\"border: 2px;border-style:solid;border-color:#434343;padding: 0.96em;width: 552px;height: 369px;margin-top: 16px;padding-top:20px;border-radius:4px;\">"
-    focusHTML += "<div style=\"display: flex; align-items: center;margin-bottom:16px;\">"
+    focusHTML += "<div style=\"display: flex; align-items: center;margin-bottom:16px;justify-content:space-between\">"
+    focusHTML += "<div>"
     focusHTML += "<img src=\"" + gsLogoUrl + "\" style=\"height: 50px;float:left;margin-right: 6px;\" />"
-    focusHTML += "<span " + gsTitleStyle + ">Grey Software</span>"
+    focusHTML += "<span><a href=\"https://www.grey.software\"" + gsTitleStyle + ">Grey Software</a></span>"
+    focusHTML += "</div>"
     focusHTML += gsSocialStyle
+    focusHTML += "<div>"
     focusHTML += "<a href=\"https://www.linkedin.com/company/grey-software/\"><img class=\"social-link\" src=\"" + linkedinLogoUrl + "\" /></a>"
     focusHTML += "<a href=\"https://github.com/grey-software\"><img class=\"social-link\" src=\"" + githubLogoUrl + "\" /></a>"
+    focusHTML += "</div>"
 
     focusHTML += "</div>"
     focusHTML += hyperlinkStyle
