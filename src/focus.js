@@ -71,36 +71,40 @@ const displayQuote = () => {
     const quoteSourceStyle = "style=\"color:#293E4A;font-size:20px;font-style:italic;margin-bottom:16px;\""
     const instructionStyle = "style=\"color:#293E4A;font-size:16px;\margin-bottom:4px;\""
     const logoStyle = " style=\"height: 24px;margin: 0px 4px;\" "
-    const gsDesc = "This web extension was developed by Grey Software, a not-for-profit open source software development academy where maintainers and students create free software."
     const hyperlinkStyle = "<style>a{text-decoration: none;color: black;} a:visited{text-decoration: none;color: black;} a:hover{text-decoration: none !important;opacity: 0.7;} </style>"
-    const gsDonate = "You can support us as we envision and build the software ecosystem of the future by sponsoring us on GitHub and/or by making a donation via PayPal."
-    const gsThankYou = "Thank you for your generosity and support 🙂"
+  
     const paypalButtonStyle = "<style>.paypal-icon{height:24px;margin-right:4px}.paypal-button{margin-right:24px;border-radius:24px;height:42px;border:1px solid #003084;outline:none;display:flex;align-items:center;padding:2px 16px;color:#003084;font-size:18px;background-color:white;transition:all 0.3s ease-out}.paypal-button:hover{cursor:pointer;border:1px solid #1ba0de}.paypal-button:active{cursor:pointer;border:1px solid #1ba0de;color:white;background-color:#003084}</style>"
     const sponsorButtonStyle = "<style>.btn-github-sponsors {color: #24292e;background-color: #fafbfc;border-color: rgba(27, 31, 35, 0.15) !important;box-shadow: 0 1px 0 rgba(27, 31, 35, 0.04),inset 0 1px 0 hsla(0, 0%, 100%, 0.25);transition: background-color 0.2s cubic-bezier(0.3, 0, 0.5, 1);padding: 5px 16px;font-size: 14px;font-weight: 500;line-height: 20px;white-space: nowrap;;cursor: pointer;user-select: none;border: 1px solid;border-radius: 6px;appearance: none;font-family: BlinkMacSystemFont, Segoe UI, Helvetica, Arial; background-color: #f3f4f6;transition-duration: 0.1s;} .icon-github-sponsors {margin-right: 8px;vertical-align: text-bottom;}</style>"
-
+    
+    const gsDesc = "This web extension was developed by Grey Software, a not-for-profit open source software development academy where maintainers and students create free software."
     const instruction = "To exit focus mode, click on the LinkedInFocus extension:"
+    const gsDonate = "You can support us as we envision and build the software ecosystem of the future by sponsoring us on GitHub and/or by making a donation via PayPal."
+    const gsThankYou = "Thank you for your generosity and support 🙂"
 
     var focusHTML = "<h1 " + lfTitleStyle + ">LinkedInFocus</h1>"
+    focusHTML += hyperlinkStyle
     focusHTML += "<p " + quoteStyle + ">" + quote.text + "</p>"
     focusHTML += "<p " + quoteSourceStyle + ">- " + quote.source + "</p>"
     focusHTML += "<p " + instructionStyle + ">" + instruction
     focusHTML += "<img src=\"" + logoUrl + "\" " + logoStyle + ">" + " from the extensions panel on the top right corner of your screen.</p>"
     focusHTML += "<br>"
 
+    
     focusHTML += "<div style=\"border: 2px;border-style:solid;border-color:#434343;padding: 0.96em;width: 552px;height: 369px;margin-top: 16px;padding-top:20px;border-radius:4px;\">"
     focusHTML += "<div style=\"display: flex; align-items: center;margin-bottom:16px;justify-content:space-between\">"
+    
     focusHTML += "<div>"
     focusHTML += "<img src=\"" + gsLogoUrl + "\" style=\"height: 50px;float:left;margin-right: 6px;\" />"
     focusHTML += "<span><a href=\"https://www.grey.software\"" + gsTitleStyle + ">Grey Software</a></span>"
     focusHTML += "</div>"
+    
     focusHTML += gsSocialStyle
     focusHTML += "<div>"
     focusHTML += "<a href=\"https://www.linkedin.com/company/grey-software/\"><img class=\"social-link\" src=\"" + linkedinLogoUrl + "\" /></a>"
     focusHTML += "<a href=\"https://github.com/grey-software\"><img class=\"social-link\" src=\"" + githubLogoUrl + "\" /></a>"
     focusHTML += "</div>"
-
     focusHTML += "</div>"
-    focusHTML += hyperlinkStyle
+
     focusHTML += "<div>" + gsDesc + "</div>"
     focusHTML += "<div style=\"margin: 12px 0px;\">" + gsDonate + "</div>"
     focusHTML += "<div style=\"margin-bottom: 12px;\">" + gsThankYou + "</div>"
