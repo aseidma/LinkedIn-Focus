@@ -20,11 +20,8 @@ chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
         return
     }
     if (changeInfo.url) {
-        console.log("Url exists")
         if (changeInfo.url.includes("linkedin.com/feed")) {
-            console.log("LinkedIn feed")
             if (focus) {
-                console.log("Focused")
                 port.postMessage({ type: "focus" })
             }
         } else {
