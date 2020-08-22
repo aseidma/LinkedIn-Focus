@@ -20,7 +20,11 @@
         "default_title": "LinkedInFocus"
     },
     "web_accessible_resources": [
-        "icon.png", "logo.png", "toonin_logo.png", "material_math_logo.png"
+        "icon.png",
+        "logo.png",
+        "paypal.png",
+        "github.svg",
+        "linkedin.svg"
     ],
     "permissions": ["tabs"]
 

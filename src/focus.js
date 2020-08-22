@@ -1,8 +1,8 @@
 const logoUrl = chrome.runtime.getURL("icon.png")
 const gsLogoUrl = chrome.runtime.getURL("logo.png")
-const tooninLogoUrl = chrome.runtime.getURL("toonin_logo.png")
-const materialMathLogoUrl = chrome.runtime.getURL("material_math_logo.png")
 const paypalLogoUrl = chrome.runtime.getURL("paypal.png")
+const githubLogoUrl = chrome.runtime.getURL("github.svg")
+const linkedinLogoUrl = chrome.runtime.getURL("linkedin.svg")
 
 const NEWS_FEED_CLASSNAME = "core-rail"
 const SHARED_NEWS_CLASSNAME = "feed-shared-news-module"
@@ -69,6 +69,7 @@ const displayQuote = () => {
     const gsTitleStyle = "style=\"color:#434343;font-size:32px;font-weight:700;margin-right:auto;\""
     const gsGithubStyle = "style=\"height: 32px;width: 32px;font-size: 32px;margin: 0px 6px;\""
     const gsSocialLinkedInStyle = "style=\"background: #007bb5;color: white;height: 32px;width: 32px;font-size: 24px;margin: 0px 6px;padding: 6px;border-radius:4px;\""
+    const gsSocialStyle = "<style>.social-link {height: 32px;margin: 0px 6px;}</style>"
     const quoteSourceStyle = "style=\"color:#293E4A;font-size:20px;font-style:italic;margin-bottom:16px;\""
     const instructionStyle = "style=\"color:#293E4A;font-size:16px;\margin-bottom:4px;\""
     const logoStyle = " style=\"height: 24px;margin: 0px 4px;\" "
@@ -82,51 +83,35 @@ const displayQuote = () => {
 
     const instruction = "To exit focus mode, click on the LinkedInFocus extension:"
 
-    var linkedInFocusHTML = "<h1 " + lfTitleStyle + ">LinkedInFocus</h1>"
-    linkedInFocusHTML += "<link rel=\"stylesheet\" href=\"https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css\"></link>"
-    linkedInFocusHTML += "<p " + quoteStyle + ">" + quote.text + "</p>"
-    linkedInFocusHTML += "<p " + quoteSourceStyle + ">- " + quote.source + "</p>"
-    linkedInFocusHTML += "<p " + instructionStyle + ">" + instruction
-    linkedInFocusHTML += "<img src=\"" + logoUrl + "\" " + logoStyle + ">" + " from the extensions panel on the top right corner of your screen.</p>"
-    linkedInFocusHTML += "<br>"
+    var focusHTML = "<h1 " + lfTitleStyle + ">LinkedInFocus</h1>"
+    focusHTML += "<p " + quoteStyle + ">" + quote.text + "</p>"
+    focusHTML += "<p " + quoteSourceStyle + ">- " + quote.source + "</p>"
+    focusHTML += "<p " + instructionStyle + ">" + instruction
+    focusHTML += "<img src=\"" + logoUrl + "\" " + logoStyle + ">" + " from the extensions panel on the top right corner of your screen.</p>"
+    focusHTML += "<br>"
 
-    linkedInFocusHTML += "<div style=\"border: 2px;border-style:solid;border-color:#434343;padding: 1em;width: 552px;height: 370px;margin-top: 24px;padding-top:24px;border-radius:4px;\">"
-    linkedInFocusHTML += "<div style=\"display: flex; align-items: center;margin-bottom:16px;\">"
-    linkedInFocusHTML += "<img src=\"" + gsLogoUrl + "\" style=\"height: 50px;float:left;margin-right: 6px;\" />"
-    linkedInFocusHTML += "<span " + gsTitleStyle + ">Grey Software</span>"
-    linkedInFocusHTML += "<a " + gsSocialLinkedInStyle + " href=\"https://www.linkedin.com/company/grey-software/\" class=\"fa fa-linkedin\"></a>"
-    linkedInFocusHTML += "<a " + gsGithubStyle + " href=\"https://github.com/grey-software\" class=\"fa fa-github\"></a>"
-    linkedInFocusHTML += "</div>"
-    linkedInFocusHTML += hyperlinkStyle
-    linkedInFocusHTML += "<div>" + gsDesc + "</div>"
-    linkedInFocusHTML += "<div style=\"margin: 12px 0px;\">" + gsDonate + "</div>"
-    linkedInFocusHTML += "<div style=\"margin-bottom: 12px;\">" + gsThankYou + "</div>"
-    linkedInFocusHTML += paypalButtonStyle
-    linkedInFocusHTML += sponsorButtonStyle
-    linkedInFocusHTML += "<div style=\"display:flex;align-items:center\">"
-    linkedInFocusHTML += "<a target=\"_blank\" href=\"https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=VEAGAZP7DHJNE&source=url\"><button class=\"paypal-button\"><img class=\"paypal-icon\" src=\"https://assets.codepen.io/853141/paypal.png\"/>Donate</button></a>"
-    linkedInFocusHTML += "<a href=\"https://github.com/sponsors/grey-software\" class=\"btn-github-sponsors\"><svg class=\"icon-github-sponsors\" viewBox=\"0 0 16 16\" version=\"1.1\" width=\"16\" height=\"16\" aria-hidden=\"true\"><path fill-rule=\"evenodd\" fill=\"#ea4aaa\" d=\"M4.25 2.5c-1.336 0-2.75 1.164-2.75 3 0 2.15 1.58 4.144 3.365 5.682A20.565 20.565 0 008 13.393a20.561 20.561 0 003.135-2.211C12.92 9.644 14.5 7.65 14.5 5.5c0-1.836-1.414-3-2.75-3-1.373 0-2.609.986-3.029 2.456a.75.75 0 01-1.442 0C6.859 3.486 5.623 2.5 4.25 2.5zM8 14.25l-.345.666-.002-.001-.006-.003-.018-.01a7.643 7.643 0 01-.31-.17 22.075 22.075 0 01-3.434-2.414C2.045 10.731 0 8.35 0 5.5 0 2.836 2.086 1 4.25 1 5.797 1 7.153 1.802 8 3.02 8.847 1.802 10.203 1 11.75 1 13.914 1 16 2.836 16 5.5c0 2.85-2.045 5.231-3.885 6.818a22.08 22.08 0 01-3.744 2.584l-.018.01-.006.003h-.002L8 14.25zm0 0l.345.666a.752.752 0 01-.69 0L8 14.25z\"></path></svg><span>Sponsor</span></a>"
-    linkedInFocusHTML += "</div>"
+    focusHTML += "<div style=\"border: 2px;border-style:solid;border-color:#434343;padding: 0.96em;width: 552px;height: 369px;margin-top: 16px;padding-top:20px;border-radius:4px;\">"
+    focusHTML += "<div style=\"display: flex; align-items: center;margin-bottom:16px;\">"
+    focusHTML += "<img src=\"" + gsLogoUrl + "\" style=\"height: 50px;float:left;margin-right: 6px;\" />"
+    focusHTML += "<span " + gsTitleStyle + ">Grey Software</span>"
+    focusHTML += gsSocialStyle
+    focusHTML += "<a href=\"https://www.linkedin.com/company/grey-software/\"><img class=\"social-link\" src=\"" + linkedinLogoUrl + "\" /></a>"
+    focusHTML += "<a href=\"https://github.com/grey-software\"><img class=\"social-link\" src=\"" + githubLogoUrl + "\" /></a>"
+
+    focusHTML += "</div>"
+    focusHTML += hyperlinkStyle
+    focusHTML += "<div>" + gsDesc + "</div>"
+    focusHTML += "<div style=\"margin: 12px 0px;\">" + gsDonate + "</div>"
+    focusHTML += "<div style=\"margin-bottom: 12px;\">" + gsThankYou + "</div>"
+    focusHTML += paypalButtonStyle
+    focusHTML += sponsorButtonStyle
+    focusHTML += "<div style=\"display:flex;align-items:center\">"
+    focusHTML += "<a target=\"_blank\" href=\"https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=VEAGAZP7DHJNE&source=url\"><button class=\"paypal-button\"><img class=\"paypal-icon\" src=\"" + paypalLogoUrl + "\"/>Donate</button></a>"
+    focusHTML += "<a href=\"https://github.com/sponsors/grey-software\" class=\"btn-github-sponsors\"><svg class=\"icon-github-sponsors\" viewBox=\"0 0 16 16\" version=\"1.1\" width=\"16\" height=\"16\" aria-hidden=\"true\"><path fill-rule=\"evenodd\" fill=\"#ea4aaa\" d=\"M4.25 2.5c-1.336 0-2.75 1.164-2.75 3 0 2.15 1.58 4.144 3.365 5.682A20.565 20.565 0 008 13.393a20.561 20.561 0 003.135-2.211C12.92 9.644 14.5 7.65 14.5 5.5c0-1.836-1.414-3-2.75-3-1.373 0-2.609.986-3.029 2.456a.75.75 0 01-1.442 0C6.859 3.486 5.623 2.5 4.25 2.5zM8 14.25l-.345.666-.002-.001-.006-.003-.018-.01a7.643 7.643 0 01-.31-.17 22.075 22.075 0 01-3.434-2.414C2.045 10.731 0 8.35 0 5.5 0 2.836 2.086 1 4.25 1 5.797 1 7.153 1.802 8 3.02 8.847 1.802 10.203 1 11.75 1 13.914 1 16 2.836 16 5.5c0 2.85-2.045 5.231-3.885 6.818a22.08 22.08 0 01-3.744 2.584l-.018.01-.006.003h-.002L8 14.25zm0 0l.345.666a.752.752 0 01-.69 0L8 14.25z\"></path></svg><span>Sponsor</span></a>"
+    focusHTML += "</div>"
 
     const quoteHtmlNode = document.createElement("div")
-    quoteHtmlNode.innerHTML = linkedInFocusHTML
-
-    // HTML for side panel
-    var sidePanelHTML = "<div style=\"padding:15px;\">"
-    sidePanelHTML += "<h2 " + gspanelTitleStyle + ">Grey Software Initiatives</h2>"
-    sidePanelHTML += "<div style=\"display:flex;\">"
-    sidePanelHTML += "<div style=\"flex:50%;\">"
-    sidePanelHTML += "<center><img src=\"" + tooninLogoUrl + "\" style=\"width:40%;\"/></center>"
-    sidePanelHTML += "<p style=\"text-align:center;width=40%;\"><a href=\"https://github.com/grey-software/toonin\">Toonin</a></p>"
-    sidePanelHTML += "</div>"
-    sidePanelHTML += "<div style=\"flex:50%;\">"
-    sidePanelHTML += "<center><img src=\"" + materialMathLogoUrl + "\" style=\"width:40%;\"/></center>"
-    sidePanelHTML += "<p style=\"text-align:center;width=40%;\"><a href=\"https://github.com/grey-software/Material-Math\">Material Math</a></p>"
-    sidePanelHTML += "</div>"
-    sidePanelHTML += hyperlinkStyle
-    sidePanelHTML += "</div>"
-    // Change the HTML of the side panel
-    document.getElementsByClassName('artdeco-card ember-view')[4].innerHTML = sidePanelHTML
+    quoteHtmlNode.innerHTML = focusHTML
 
     document.getElementsByClassName(NEWS_FEED_CLASSNAME)[0].prepend(quoteHtmlNode)
     document.getElementsByClassName(NEWS_FEED_CLASSNAME)[0].style.fontFamily = "Arial, Helvetica";
