@@ -116,10 +116,10 @@ const displayQuote = () => {
     const parser = new DOMParser()
     const parsed = parser.parseFromString(focusHTML, `text/html`)
     const tags = parsed.getElementsByTagName(`body`)
-    
+
     quoteHtmlNode.innerHTML = ``
     for (const tag of tags) {
-    quoteHtmlNode.appendChild(tag)
+        quoteHtmlNode.appendChild(tag)
     }
 
     document.getElementsByClassName(NEWS_FEED_CLASSNAME)[0].prepend(quoteHtmlNode)
