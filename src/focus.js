@@ -87,7 +87,7 @@ const displayQuote = () => {
     focusHTML += "<img src=\"" + logoUrl + "\" " + logoStyle + ">" + " from the extensions panel on the top right corner of your screen.</p>"
     focusHTML += "<br>"
 
-    focusHTML += "<div style=\"border: 2px;border-style:solid;border-color:#434343;padding: 0.96em;width: 552px;height: 369px;margin-top: 16px;padding-top:20px;border-radius:4px;\">"
+    focusHTML += "<div style=\"border: 2px;border-style:solid;border-color:#434343;padding: 0.96em;width: 535px;height: 369px;margin-top: 16px;padding-top:20px;border-radius:4px;\">"
     focusHTML += "<div style=\"display: flex; align-items: center;margin-bottom:16px;justify-content:space-between\">"
     focusHTML += "<div>"
     focusHTML += "<img src=\"" + gsLogoUrl + "\" style=\"height: 50px;float:left;margin-right: 6px;\" />"
@@ -112,7 +112,15 @@ const displayQuote = () => {
     focusHTML += "</div>"
 
     const quoteHtmlNode = document.createElement("div")
-    quoteHtmlNode.innerHTML = focusHTML
+
+    const parser = new DOMParser()
+    const parsed = parser.parseFromString(focusHTML, `text/html`)
+    const tags = parsed.getElementsByTagName(`body`)
+    
+    quoteHtmlNode.innerHTML = ``
+    for (const tag of tags) {
+    quoteHtmlNode.appendChild(tag)
+    }
 
     document.getElementsByClassName(NEWS_FEED_CLASSNAME)[0].prepend(quoteHtmlNode)
     document.getElementsByClassName(NEWS_FEED_CLASSNAME)[0].style.fontFamily = "Arial, Helvetica";
