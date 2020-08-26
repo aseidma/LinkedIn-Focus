@@ -10,7 +10,10 @@ const MAIN_CONTAINER_CLASSNAME = "ghost-animate-in"
 
 const setMainContainerVisibility = (visible) => {
     const visibility = visible ? 'visible' : 'hidden'
-    document.getElementsByClassName(MAIN_CONTAINER_CLASSNAME)[0].style.visibility = visibility
+    const opacity = visible ? '1' : '0'
+    const mainContainer = document.getElementsByClassName(MAIN_CONTAINER_CLASSNAME)[0]
+    mainContainer.style.visibility = visibility
+    mainContainer.style.opacity = opacity
 }
 
 const setupMainContainer = () => {
@@ -151,11 +154,12 @@ const hideDistractions = (shouldHide) => {
             document.getElementsByClassName('ad-banner-container is-header-zone ember-view')[0].style.visibility = 'visible'
             document.getElementsByClassName('ad-banner-container artdeco-card ember-view')[0].style.visibility = 'visible'
         }
-
         distractionsHidden = shouldHide
-        setMainContainerVisibility(true)
     } catch (e) {
         console.log("Element not loaded: " + e)
+        console.log( e)
+    } finally {
+        setMainContainerVisibility(true)
     }
 }
 
