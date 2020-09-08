@@ -5,8 +5,9 @@ const githubLogoUrl = chrome.runtime.getURL("github.svg")
 const linkedinLogoUrl = chrome.runtime.getURL("linkedin.svg")
 
 const NEWS_FEED_CLASSNAME = "core-rail"
-const SHARED_NEWS_CLASSNAME = "feed-shared-news-module"
-const MAIN_CONTAINER_CLASSNAME = "ghost-animate-in"
+const SHARED_NEWS_CLASSNAME = "ad-banner-container artdeco-card ember-view"
+const MAIN_CONTAINER_CLASSNAME = "neptune-grid three-column ghost-animate-in"
+const LINKEDIN_NEWS = "news-module pv3 ember-view"
 
 const setMainContainerVisibility = (visible) => {
     const visibility = visible ? 'visible' : 'hidden'
@@ -140,7 +141,7 @@ const hideDistractions = (shouldHide) => {
                 newsFeedContainer.children[i].style.visibility = 'hidden';
             }
             document.getElementsByClassName('ad-banner-container is-header-zone ember-view')[0].style.visibility = 'hidden'
-            document.getElementsByClassName('ad-banner-container artdeco-card ember-view')[0].style.visibility = 'hidden'
+            document.getElementsByClassName(LINKEDIN_NEWS)[0].style.visibility = 'hidden'
             displayQuote()
             setTimeout(() => {
                 document.getElementsByClassName(MAIN_CONTAINER_CLASSNAME)[0].style.opacity = "1"
@@ -152,7 +153,7 @@ const hideDistractions = (shouldHide) => {
                 newsFeedContainer.children[i].style.visibility = 'visible';
             }
             document.getElementsByClassName('ad-banner-container is-header-zone ember-view')[0].style.visibility = 'visible'
-            document.getElementsByClassName('ad-banner-container artdeco-card ember-view')[0].style.visibility = 'visible'
+            document.getElementsByClassName(LINKEDIN_NEWS)[0].style.visibility = 'visible'
         }
         distractionsHidden = shouldHide
     } catch (e) {
